@@ -28,7 +28,7 @@ public class LibZip4jTest {
         if (file.createNewFile())
             System.out.println("test.txt is created");
 
-        zipFile = new File("zipTest.zip");
+        zipFile = new File(File.separator + "zipTest.zip");
 
         unZipDir = new File("UnZipDir");
         if (unZipDir.mkdir())

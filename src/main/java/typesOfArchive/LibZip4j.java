@@ -1,6 +1,5 @@
 package typesOfArchive;
 
-import actionWithArchive.AllFiles;
 import interfases.TypeOfArchive;
 import java.io.File;
 import net.lingala.zip4j.core.*;
@@ -9,7 +8,6 @@ import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * A class that implements interface TypeOfArchive and uses <i>net.lingala.zip4j</i> library.
@@ -26,14 +24,16 @@ public class LibZip4j implements TypeOfArchive {
      */
     @Override
     public void packArchive(File file, File pathToArchive, String psw) {
-        // List that store archived files
-        ArrayList<File> filesToArchive;
 
         try {
+            //
+            if (!pathToArchive.getParentFile().exists()){
+                if (pathToArchive.getParentFile().mkdirs())
+                    System.out.println("Directory " + pathToArchive.getParentFile() + " is created");
+
+            }
             // Initiate ZipFile object with the File object
             ZipFile zipFile = new ZipFile(pathToArchive);
-            // Add files to the list
-            filesToArchive = new AllFiles().getFiles(file);
             // Initiate zip parameters
             ZipParameters zipParameters = new ZipParameters();
             zipParameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
@@ -43,8 +43,12 @@ public class LibZip4j implements TypeOfArchive {
             zipParameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
             zipParameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
             zipParameters.setPassword(psw.toCharArray());
-            // Add files to the zip file
-            zipFile.addFiles(filesToArchive, zipParameters);
+
+            if (file.isDirectory()){
+                zipFile.addFolder(file, zipParameters);
+            } else {
+                zipFile.addFile(file, zipParameters);
+            }
 
         } catch (ZipException e) {
             e.printStackTrace();
