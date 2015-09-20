@@ -17,6 +17,9 @@ public class ArchiveMode {
     private PasswordMode passwordMode;
     private InputMode inputMode;
     private OutputMode outputMode;
+    private static ArchiveMode archiveMode;
+
+    private ArchiveMode(){}
 
     public LibMode getLibMode() {
         return libMode;
@@ -50,4 +53,7 @@ public class ArchiveMode {
         this.outputMode = outputMode;
     }
 
+    public static ArchiveMode getArchiveMode() {
+        return archiveMode == null ? archiveMode = new ArchiveMode(): archiveMode;
+    }
 }

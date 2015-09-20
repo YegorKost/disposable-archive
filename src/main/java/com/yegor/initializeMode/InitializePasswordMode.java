@@ -1,6 +1,9 @@
 package com.yegor.initializeMode;
 
+import com.yegor.disposableArchive.ArchiveMode;
 import com.yegor.interfaces.InitializeMode;
+import com.yegor.interfaces.PasswordMode;
+import com.yegor.modes.passwordModes.PasswordModeRealizationHC;
 
 /**
  * This class initializes a mode of password creation.
@@ -9,33 +12,31 @@ import com.yegor.interfaces.InitializeMode;
  * @version 1.0
  */
 public class InitializePasswordMode implements InitializeMode {
-//    Beginning of old code
+    private String option, value;
 
-//    private String pswMode;
-//
-//    InitializePasswordMode() {}
-//
-//    InitializePasswordMode(String pswMode) {this.pswMode = pswMode;}
-//
-//    public PasswordMode setPasswordMode () {
-//        PasswordMode passwordMode = null;
-//        switch (pswMode){
-//            default: passwordMode = new PasswordModeRealizationHC();
-//                System.out.println("Password mode: " + pswMode.getClass().getName()); break;
-//        }
-//        return passwordMode;
-//    }
-
-//    Ending of old code
+    public InitializePasswordMode(String option, String value) {
+        this.option = option;
+        this.value = value;
+    }
 
     /**
-     * This method initializes a mode of  program.
+     * This method initializes a password mode of  program.
      *
-     * @param option specifies a mode of  program
-     * @param value  will be initialized for a mode of  program
      */
     @Override
-    public void initMode(String option, String value) {
+    public void initMode() {
+        // Get ArchiveMode object and store password mode
+        ArchiveMode archiveMode = ArchiveMode.getArchiveMode();
+        PasswordMode passwordMode;
+        switch (option) {
+            case "pswHC": passwordMode = new PasswordModeRealizationHC();
+                // Set password
+                passwordMode.setPassword(value);
+                // Set password mode
+                archiveMode.setPasswordMode(passwordMode);
+                System.out.println("Password mode: " + passwordMode.getClass().getSimpleName());
+                break;
+        }
 
     }
 }

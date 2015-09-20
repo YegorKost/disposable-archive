@@ -16,13 +16,15 @@ public interface InputMode {
      * @return the InputStream object for
      * <code>{@link LibMode#packArchive(java.io.InputStream, java.io.OutputStream, java.lang.String)}</code>
      * method
+     * @param input data that will be packed
      */
-    InputStream setInputModeForPack ();
+    InputStream setInputModeForPack(String input);
 
     /**
      * @return the InputStream object for
      * <code>{@link LibMode#unpackArchive(java.io.InputStream, java.io.OutputStream, java.lang.String)}</code>
      * method
+     * @param input data that will be unpacked
      */
-    InputStream setInputModeForUnpack ();
+    InputStream setInputModeForUnpack(String input);
 }

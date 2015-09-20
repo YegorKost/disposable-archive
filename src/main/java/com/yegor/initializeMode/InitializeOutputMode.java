@@ -1,6 +1,9 @@
 package com.yegor.initializeMode;
 
+import com.yegor.disposableArchive.ArchiveMode;
 import com.yegor.interfaces.InitializeMode;
+import com.yegor.interfaces.OutputMode;
+import com.yegor.modes.outputModes.FileOutputMode;
 
 /**
  * This class initializes a mode of <code>output</code> object for
@@ -11,14 +14,32 @@ import com.yegor.interfaces.InitializeMode;
  * @version 1.0
  */
 public class InitializeOutputMode implements InitializeMode {
+
+    private String option, value;
+
+    public InitializeOutputMode (String option, String value) {
+        this.option = option;
+        this.value = value;
+    }
+
     /**
-     * This method initializes a mode of  program.
+     * This method initializes a output mode of  program.
      *
-     * @param option specifies a mode of  program
-     * @param value  will be initialized for a mode of  program
      */
     @Override
-    public void initMode(String option, String value) {
+    public void initMode() {
+        // Get ArchiveMode object and store output mode
+        ArchiveMode archiveMode = ArchiveMode.getArchiveMode();
+        OutputMode outputMode;
+        switch (option) {
+            case ("of"): outputMode = new FileOutputMode();
+                outputMode.setOutputModeForPack(value);
+                outputMode.setOutputModeForUnpack(value);
+                // Set output mode
+                archiveMode.setOutputMode(outputMode);
+                System.out.println("Output mode: " + outputMode.getClass().getSimpleName());
+                break;
+        }
 
     }
 }

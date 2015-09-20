@@ -27,7 +27,7 @@ public interface PasswordMode {
 
     /**
      * Method generate the second part of general password for archive.
-     * @param secondPartOfPsw parameter for generate <i>secondPartOfPsw</i> password
+     * @param userPsw parameter for generate <i>secondPartOfPsw</i> password
      */
-    void setSecondPartOfPassword(String secondPartOfPsw);
+    void setSecondPartOfPassword(String userPsw);
 }
