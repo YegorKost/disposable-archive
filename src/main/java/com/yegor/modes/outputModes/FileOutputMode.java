@@ -3,7 +3,8 @@ package com.yegor.modes.outputModes;
 import com.yegor.interfaces.LibMode;
 import com.yegor.interfaces.OutputMode;
 
-import java.io.*;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * This class defines a mode of <code>output</code> object for
@@ -14,38 +15,23 @@ import java.io.*;
  * @version 1.0
  */
 public class FileOutputMode implements OutputMode {
-
-    private File file;
-
-     /**
+    /**
      * @return the OutputStream object for
      * <code>{@link LibMode#packArchive(InputStream, OutputStream, String)}</code>
-     * <code>{@link LibMode#unpackArchive(InputStream, OutputStream, String)}</code>
-     * methods
-     * @param output a file (archive) where data will be packed or a directory where data will be unpacked
+     * method
      */
     @Override
-    public OutputStream setOutputMode(String output) {
-        file = new File(output);
-
-        FileOutputStream fileOutputStream = null;
-        try {
-            if (file.createNewFile()) {
-
-                try {
-                    fileOutputStream = new FileOutputStream(file);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return fileOutputStream;
+    public OutputStream setOutputModeForPack() {
+        return null;
     }
 
-    /** This method return file object that represents directory for unpackArchive method */
-    public File getFile() {
-        return file;
+    /**
+     * @return the OutputStream object for
+     * <code>{@link LibMode#unpackArchive(InputStream, OutputStream, String)}</code>
+     * method
+     */
+    @Override
+    public OutputStream setOutputModeForUnpack() {
+        return null;
     }
 }

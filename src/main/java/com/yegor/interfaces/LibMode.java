@@ -20,7 +20,7 @@ public interface LibMode {
     void packArchive (InputStream input, OutputStream output, String psw);
 
     /**
-     * Extracts contents from archive and then stores it to assigned target
+     * Extracts contents from archive
      * @param input the archive
      * @param output the target where extracting contents will be store
      * @param psw password of archive

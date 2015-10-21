@@ -3,8 +3,8 @@ package com.yegor.modes.inputModes;
 import com.yegor.interfaces.InputMode;
 import com.yegor.interfaces.LibMode;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * This class defines a mode of <code>input</code> object for
@@ -17,15 +17,22 @@ import java.nio.charset.StandardCharsets;
 public class FileInputMode implements InputMode{
     /**
      * @return the InputStream object for
-     * <code>{@link LibMode#packArchive(InputStream, OutputStream, String)}</code> or
-     * <code>{@link LibMode#unpackArchive(InputStream, OutputStream, String)}</code> methods
-     *
-     * @param input file or directory that will be packed and file (archive) that will be unpacked
+     * <code>{@link LibMode#packArchive(InputStream, OutputStream, String)}</code>
+     * method
      */
     @Override
-    public InputStream setInputMode(String input) {
-        return new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+    public InputStream setInputModeForPack() {
+        return null;
     }
 
+    /**
+     * @return the InputStream object for
+     * <code>{@link LibMode#unpackArchive(InputStream, OutputStream, String)}</code>
+     * method
+     */
+    @Override
+    public InputStream setInputModeForUnpack() {
+        return null;
+    }
 }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    

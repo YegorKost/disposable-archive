@@ -33,7 +33,8 @@ public class InitializeInputMode implements InitializeMode {
         InputMode inputMode;
         switch (option) {
             case ("if"): inputMode = new FileInputMode();
-                inputMode.setInputMode(value);
+                inputMode.setInputModeForPack(value);
+                inputMode.setInputModeForUnpack(value);
                 // Set input mode
                 archiveMode.setInputMode(inputMode);
                 System.out.println("Input mode: " + inputMode.getClass().getSimpleName());
