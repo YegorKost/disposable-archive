@@ -15,16 +15,10 @@ public interface OutputMode {
     /**
      * @return the OutputStream object for
      * <code>{@link LibMode#packArchive(java.io.InputStream, java.io.OutputStream, java.lang.String)}</code>
-     * method
-     * @param output a target where data will be packed
+     * <code>{@link LibMode#unpackArchive(java.io.InputStream, java.io.OutputStream, java.lang.String)}</code> methods.
+     *
+     * @param output a target where data will be packed or unpacked
      */
-    OutputStream setOutputModeForPack(String output);
+    OutputStream setOutputMode(String output);
 
-    /**
-     * @return the OutputStream object for
-     * <code>{@link LibMode#unpackArchive(java.io.InputStream, java.io.OutputStream, java.lang.String)}</code>
-     * method
-     * @param output a target where data will be unpacked
-     */
-    OutputStream setOutputModeForUnpack(String output);
 }

@@ -33,8 +33,7 @@ public class InitializeOutputMode implements InitializeMode {
         OutputMode outputMode;
         switch (option) {
             case ("of"): outputMode = new FileOutputMode();
-                outputMode.setOutputModeForPack(value);
-                outputMode.setOutputModeForUnpack(value);
+                outputMode.setOutputMode(value);
                 // Set output mode
                 archiveMode.setOutputMode(outputMode);
                 System.out.println("Output mode: " + outputMode.getClass().getSimpleName());
