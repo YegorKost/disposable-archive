@@ -28,15 +28,16 @@ public class InitializePasswordMode implements InitializeMode {
         // Get ArchiveMode object and store password mode
         ArchiveMode archiveMode = ArchiveMode.getArchiveMode();
         PasswordMode passwordMode;
-        switch (option) {
-            case "pswHC": passwordMode = new PasswordModeRealizationHC();
-                // Set password
-                passwordMode.setPassword(value);
-                // Set password mode
-                archiveMode.setPasswordMode(passwordMode);
-                System.out.println("Password mode: " + passwordMode.getClass().getSimpleName());
-                break;
+        if (option != null && value != null) {
+            switch (option) {
+                case "pswHC": passwordMode = new PasswordModeRealizationHC();
+                    // Set password
+                    passwordMode.setPassword(value);
+                    // Set password mode
+                    archiveMode.setPasswordMode(passwordMode);
+                    System.out.println("Password mode: " + passwordMode.getClass().getSimpleName());
+                    break;
+            }
         }
-
     }
 }

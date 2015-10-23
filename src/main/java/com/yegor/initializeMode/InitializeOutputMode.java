@@ -31,14 +31,15 @@ public class InitializeOutputMode implements InitializeMode {
         // Get ArchiveMode object and store output mode
         ArchiveMode archiveMode = ArchiveMode.getArchiveMode();
         OutputMode outputMode;
-        switch (option) {
-            case ("of"): outputMode = new FileOutputMode();
-                outputMode.setOutputMode(value);
-                // Set output mode
-                archiveMode.setOutputMode(outputMode);
-                System.out.println("Output mode: " + outputMode.getClass().getSimpleName());
-                break;
+        if (option != null && value != null) {
+            switch (option) {
+                case ("of"): outputMode = new FileOutputMode();
+                    outputMode.setOutputMode(value);
+                    // Set output mode
+                    archiveMode.setOutputMode(outputMode);
+                    System.out.println("Output mode: " + outputMode.getClass().getSimpleName());
+                    break;
+            }
         }
-
     }
 }

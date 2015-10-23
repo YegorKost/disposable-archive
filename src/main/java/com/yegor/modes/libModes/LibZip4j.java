@@ -58,6 +58,7 @@ public class LibZip4j implements LibMode {
                 }
 
                 zipOutputStream.closeEntry();
+                System.out.println("Done packaging of file " + "\t" + "\t" + file.getPath());
 
             } catch (IOException | ZipException e) {
                 e.printStackTrace();
@@ -68,6 +69,7 @@ public class LibZip4j implements LibMode {
             try {
                 zipOutputStream.putNextEntry(file, parameters);
                 zipOutputStream.closeEntry();
+                System.out.println("Done packaging of folder " + "\t" + "\t" + file.getPath());
                 File[] files = file.listFiles();
                 if (files != null) {
                     if (files.length !=0) {
@@ -153,54 +155,50 @@ public class LibZip4j implements LibMode {
 
             List fileHeaderList = zipFile.getFileHeaders();
 
-            if (output == null) {
+            for (Object aFileHeader : fileHeaderList) {
+                FileHeader fileHeader = (FileHeader) aFileHeader;
+                if (fileHeader != null) {
 
-                for (Object aFileHeader : fileHeaderList) {
-                    FileHeader fileHeader = (FileHeader) aFileHeader;
-                    if (fileHeader != null) {
+                    // Get the FileOutputMode object which contain File object that
+                    // represent directory where archive file will be unpacked
+                    FileOutputMode fileOutputMode = (FileOutputMode) ArchiveMode.getArchiveMode().getOutputMode();
+                    // Get the File object that represent directory where archive file will be store
+                    File destinationPath = fileOutputMode.getFile();
 
-                        // Get the FileOutputMode object which contain File object that
-                        // represent directory where archive file will be unpacked
-                        FileOutputMode fileOutputMode = (FileOutputMode) ArchiveMode.getArchiveMode().getOutputMode();
-                        // Get the File object that represent directory where archive file will be store
-                        File destinationPath = fileOutputMode.getFile();
+                    String outFilePath = destinationPath.getPath() + File.separator
+                            + fileHeader.getFileName();
+                    File outFile = new File(outFilePath);
 
-                        String outFilePath = destinationPath.getPath() + System.getProperty("file.separator")
-                                + fileHeader.getFileName();
-                        File outFile = new File(outFilePath);
-
-                        if (fileHeader.isDirectory()) {
-                            outFile.mkdirs();
-                            continue;
-                        }
-
-                        File parentDir = outFile.getParentFile();
-                        if (!parentDir.exists()) {
-                            parentDir.mkdirs();
-                        }
-
-                        try (ZipInputStream zipInputStream = zipFile.getInputStream(fileHeader);
-                             OutputStream outputStream = new FileOutputStream(outFile)) {
-
-                            int readLen;
-                            byte[] buff = new byte[BUFF_SIZE];
-
-                            // Read File and write the content to the output stream
-                            while ((readLen = zipInputStream.read(buff)) != -1) {
-                                outputStream.write(buff, 0, readLen);
-                            }
-
-                        }
-
-                        // To restore File attributes
-                        UnzipUtil.applyFileAttributes(fileHeader, outFile);
-
-                        System.out.println("Done extracting " + fileHeader.getFileName());
-                    } else {
-                        System.out.println("fileHeader is null!");
+                    if (fileHeader.isDirectory()) {
+                        outFile.mkdirs();
+                        continue;
                     }
-                }
 
+                    File parentDir = outFile.getParentFile();
+                    if (!parentDir.exists()) {
+                        parentDir.mkdirs();
+                    }
+
+                    try (ZipInputStream zipInputStream = zipFile.getInputStream(fileHeader);
+                         OutputStream outputStream = new FileOutputStream(outFile)) {
+
+                        int readLen;
+                        byte[] buff = new byte[BUFF_SIZE];
+
+                        // Read File and write the content to the output stream
+                        while ((readLen = zipInputStream.read(buff)) != -1) {
+                            outputStream.write(buff, 0, readLen);
+                        }
+
+                    }
+
+                    // To restore File attributes
+                    UnzipUtil.applyFileAttributes(fileHeader, outFile);
+
+                    System.out.println("Done extracting " + fileHeader.getFileName());
+                } else {
+                    System.out.println("fileHeader is null!");
+                }
             }
 
         } catch (ZipException | IOException e) {

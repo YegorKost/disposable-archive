@@ -1,9 +1,6 @@
 package com.yegor.disposableArchive;
 
-import com.yegor.interfaces.PasswordMode;
-import com.yegor.interfaces.InputMode;
-import com.yegor.interfaces.OutputMode;
-import com.yegor.interfaces.LibMode;
+import com.yegor.interfaces.*;
 
 /**
  * A class sets mode of archive.
@@ -17,6 +14,7 @@ public class ArchiveMode {
     private PasswordMode passwordMode;
     private InputMode inputMode;
     private OutputMode outputMode;
+    private ProgramMode programMode;
     private static ArchiveMode archiveMode;
 
     private ArchiveMode(){}
@@ -53,7 +51,20 @@ public class ArchiveMode {
         this.outputMode = outputMode;
     }
 
+    public ProgramMode getProgramMode() {
+        return programMode;
+    }
+
+    public void setProgramMode(ProgramMode programMode) {
+        this.programMode = programMode;
+    }
+
     public static ArchiveMode getArchiveMode() {
         return archiveMode == null ? archiveMode = new ArchiveMode(): archiveMode;
+    }
+
+    public boolean isInitialized () {
+        assert archiveMode !=null;
+        return (libMode != null) && (inputMode != null) && (outputMode != null) && (passwordMode != null);
     }
 }

@@ -3,7 +3,7 @@ package com.yegor.modes.passwordModes;
 import com.yegor.interfaces.PasswordMode;
 
 /**
- * This class defines a password for archive
+ * This class defines a password for archive.
  *
  * @author Yegor Kostochka
  * @version 1.0
@@ -22,7 +22,8 @@ public class PasswordModeRealizationHC implements PasswordMode {
     private String secondPartOfPassword;
 
     /**
-     * @return general password for archive
+     * This method returns the general password for archive.
+     * @return the general password for archive
      */
     public String getPassword() {
         return password;
@@ -30,7 +31,7 @@ public class PasswordModeRealizationHC implements PasswordMode {
 
     /**
      * Method generates general password (<code>{@link PasswordModeRealizationHC#password}</code>).
-     * It must call method setSecondPartOfPassword().
+     * It must call the method <code>{@link PasswordModeRealizationHC#setSecondPartOfPassword(java.lang.String)}</code>
      * @param userPsw user password
      */
     public void setPassword(String userPsw) {
@@ -39,7 +40,8 @@ public class PasswordModeRealizationHC implements PasswordMode {
     }
 
     /**
-     * @return password stored to another server
+     * This method returns the second part of general password for archive.
+     * @return the second part of general password for archive
      */
     public String getSecondPartOfPassword() {
         return secondPartOfPassword;

@@ -9,18 +9,20 @@ package com.yegor.interfaces;
 public interface PasswordMode {
 
     /**
+     * This method returns the general password for archive.
      * @return the general password for archive
      */
     String getPassword();
 
     /**
-     * Method generates general password. It must call method
+     * Method generates general password. It must call the method
      * <code>{@link PasswordMode#setSecondPartOfPassword(java.lang.String)}</code>.
      * @param userPsw the user password
      */
     void setPassword(String userPsw);
 
     /**
+     * This method returns the second part of general password for archive.
      * @return the second part of general password for archive
      */
     String getSecondPartOfPassword();

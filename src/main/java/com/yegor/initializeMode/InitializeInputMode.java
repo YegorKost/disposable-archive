@@ -31,14 +31,15 @@ public class InitializeInputMode implements InitializeMode {
         // Get ArchiveMode object and store input mode
         ArchiveMode archiveMode = ArchiveMode.getArchiveMode();
         InputMode inputMode;
-        switch (option) {
-            case ("if"): inputMode = new FileInputMode();
-                inputMode.setInputMode(value);
-                // Set input mode
-                archiveMode.setInputMode(inputMode);
-                System.out.println("Input mode: " + inputMode.getClass().getSimpleName());
-                break;
+        if (option != null && value != null) {
+            switch (option) {
+                case ("if"): inputMode = new FileInputMode();
+                    inputMode.setInputMode(value);
+                    // Set input mode
+                    archiveMode.setInputMode(inputMode);
+                    System.out.println("Input mode: " + inputMode.getClass().getSimpleName());
+                    break;
+            }
         }
-
     }
 }

@@ -14,10 +14,10 @@ import com.yegor.modes.libModes.LibZip4j;
  */
 public class InitializeLibMode implements InitializeMode {
 
-    private String option;
+    private String value;
 
-    public InitializeLibMode(String option) {
-        this.option = option;
+    public InitializeLibMode(String value) {
+        this.value = value;
     }
 
     /**
@@ -29,14 +29,14 @@ public class InitializeLibMode implements InitializeMode {
         // Get ArchiveMode object and store library mode
         ArchiveMode archiveMode = ArchiveMode.getArchiveMode();
         LibMode libMode;
-        switch (option) {
-            case ("zip4j"): libMode = new LibZip4j();
-                // Set library mode
-                archiveMode.setLibMode(libMode);
-                System.out.println("Library mode: " + libMode.getClass().getSimpleName());
-                break;
+        if (value != null) {
+            switch (value) {
+                case ("zip4j"): libMode = new LibZip4j();
+                    // Set library mode
+                    archiveMode.setLibMode(libMode);
+                    System.out.println("Library mode: " + libMode.getClass().getSimpleName());
+                    break;
+            }
         }
-
-
     }
 }

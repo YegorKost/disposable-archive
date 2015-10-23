@@ -1,9 +1,8 @@
 package com.yegor.parser;
 
-import com.yegor.initializeMode.InitializeInputMode;
-import com.yegor.initializeMode.InitializeLibMode;
-import com.yegor.initializeMode.InitializeOutputMode;
-import com.yegor.initializeMode.InitializePasswordMode;
+import com.yegor.disposableArchive.ArchiveMode;
+import com.yegor.initializeMode.*;
+import com.yegor.interfaces.*;
 import org.apache.commons.cli.*;
 
 import java.util.Iterator;
@@ -19,7 +18,7 @@ public class ParseCmd {
     private String[] args;
     private InitOptions initOptions = new InitOptions();
 
-    ParseCmd(String[] args) {
+    public ParseCmd(String[] args) {
         // receive the command line arguments
         this.args = args;
         // initialize defined initOptions
@@ -52,8 +51,20 @@ public class ParseCmd {
                     new InitializeInputMode(option.getOpt(), option.getValue()).initMode();
                     // Initiate output mode
                     new InitializeOutputMode(option.getOpt(), option.getValue()).initMode();
+                    // Initialize program mode
+                    new InitializeProgramMode(option.getOpt()).initMode();
                 }
 
+                ArchiveMode archiveMode = ArchiveMode.getArchiveMode();
+                if (archiveMode.isInitialized()) {
+                    LibMode libMode = archiveMode.getLibMode();
+                    InputMode inputMode = archiveMode.getInputMode();
+                    OutputMode outputMode = archiveMode.getOutputMode();
+                    PasswordMode passwordMode = archiveMode.getPasswordMode();
+                    ProgramMode programMode = archiveMode.getProgramMode();
+                    programMode.startAction(libMode, inputMode, outputMode, passwordMode);
+
+                }
             }
 
         } catch (ParseException e) {

@@ -15,7 +15,10 @@ import java.io.OutputStream;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by Администратор on 21.09.2015.
+ * This class tests pack and unpack modes.
+ *
+ * @author Yegor Kostochka
+ * @version 1.0
  */
 public class LibZip4jTest1 {
     InputStream inputStreamForPack;
@@ -51,16 +54,20 @@ public class LibZip4jTest1 {
                     ArchiveMode archiveModePack = ArchiveMode.getArchiveMode();
                     archiveModePack.setInputMode(new FileInputMode());
                     String input = tempFile.getParentFile().getParentFile().getCanonicalPath();
-                    inputStreamForPack = archiveModePack.getInputMode().setInputMode(input);
+                    archiveModePack.getInputMode().setInputMode(input);
+                    inputStreamForPack = archiveModePack.getInputMode().getInput();
                     archiveModePack.setOutputMode(new FileOutputMode());
-                    outputStreamForPack = archiveModePack.getOutputMode().setOutputMode(zipFile.getCanonicalPath());
+                    archiveModePack.getOutputMode().setOutputMode(zipFile.getCanonicalPath());
+                    outputStreamForPack = archiveModePack.getOutputMode().getOutput();
 
                     if (outDir.mkdirs()) {
                         ArchiveMode archiveModeUnpack = ArchiveMode.getArchiveMode();
                         archiveModeUnpack.setInputMode(new FileInputMode());
-                        inputStreamForUnpack = archiveModeUnpack.getInputMode().setInputMode(zipFile.getCanonicalPath());
+                        archiveModeUnpack.getInputMode().setInputMode(zipFile.getCanonicalPath());
+                        inputStreamForUnpack = archiveModeUnpack.getInputMode().getInput();
                         archiveModeUnpack.setOutputMode(new FileOutputMode());
-                        outputStreamForUnpack = archiveModeUnpack.getOutputMode().setOutputMode(outDir.getCanonicalPath());
+                        archiveModeUnpack.getOutputMode().setOutputMode(outDir.getCanonicalPath());
+                        outputStreamForUnpack = null;
                     } else {
                         System.out.println("Directory " + outDir + "is not created");
                     }
