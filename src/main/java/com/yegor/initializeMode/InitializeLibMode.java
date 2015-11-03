@@ -34,7 +34,6 @@ public class InitializeLibMode implements InitializeMode {
                 case ("zip4j"): libMode = new LibZip4j();
                     // Set library mode
                     archiveMode.setLibMode(libMode);
-                    System.out.println("Library mode: " + libMode.getClass().getSimpleName());
                     break;
             }
         }

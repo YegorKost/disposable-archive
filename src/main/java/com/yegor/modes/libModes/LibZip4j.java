@@ -29,7 +29,7 @@ public class LibZip4j implements LibMode {
     // This is additional class for creation archive file
     class Parser {
 
-        String getFile(InputStream inputStream) {
+        File getFile(InputStream inputStream) {
             int i;
             StringBuilder sb = new StringBuilder();
 
@@ -42,7 +42,7 @@ public class LibZip4j implements LibMode {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return sb.toString();
+            return new File(sb.toString());
         }
 
         void zipFile (File file, ZipOutputStream zipOutputStream, ZipParameters parameters) {
@@ -111,7 +111,7 @@ public class LibZip4j implements LibMode {
 
             Parser parser = new Parser();
             // Initiate File object which represent file or directory that will be store
-            File file = new File(parser.getFile(input));
+            File file = parser.getFile(input);
 
             parameters.setDefaultFolderPath(file.getParentFile().getAbsolutePath());
 
@@ -126,7 +126,7 @@ public class LibZip4j implements LibMode {
             zipOutputStream.finish();
 
         } catch (IOException | ZipException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
     }
@@ -202,7 +202,7 @@ public class LibZip4j implements LibMode {
             }
 
         } catch (ZipException | IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
 

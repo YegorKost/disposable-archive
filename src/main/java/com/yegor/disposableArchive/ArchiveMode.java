@@ -67,4 +67,32 @@ public class ArchiveMode {
         assert archiveMode !=null;
         return (libMode != null) && (inputMode != null) && (outputMode != null) && (passwordMode != null);
     }
+
+    public void getState() {
+        if (libMode == null) {
+            System.out.println("Library mode is not initialized!");
+        } else {
+            System.out.println("Library mode is initialized: " + libMode.getClass().getSimpleName());
+        }
+        if (passwordMode == null) {
+            System.out.println("Password mode is not initialized!");
+        } else {
+            System.out.println("Password mode is initialized: " + passwordMode.getClass().getSimpleName());
+        }
+        if (inputMode == null) {
+            System.out.println("Input mode is not initialized!");
+        } else {
+            System.out.println("Input mode is initialized: " + inputMode.getClass().getSimpleName());
+        }
+        if (outputMode == null) {
+            System.out.println("Output mode is not initialized!");
+        } else {
+            System.out.println("Output mode is initialized: " + outputMode.getClass().getSimpleName());
+        }
+        if (programMode == null) {
+            System.out.println("Program mode is not initialized!");
+        } else {
+            System.out.println("Program mode is initialized: " + programMode.getClass().getSimpleName());
+        }
+    }
 }

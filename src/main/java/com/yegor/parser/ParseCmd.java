@@ -1,8 +1,6 @@
 package com.yegor.parser;
 
-import com.yegor.disposableArchive.ArchiveMode;
 import com.yegor.initializeMode.*;
-import com.yegor.interfaces.*;
 import org.apache.commons.cli.*;
 
 import java.util.Iterator;
@@ -17,6 +15,7 @@ public class ParseCmd {
 
     private String[] args;
     private InitOptions initOptions = new InitOptions();
+    private boolean helpOption = false;
 
     public ParseCmd(String[] args) {
         // receive the command line arguments
@@ -25,7 +24,8 @@ public class ParseCmd {
         initOptions.initializeOptions();
     }
 
-    public void parse () {
+    public void parseAndInit() {
+
         // create command line parser
         CommandLineParser parser = new DefaultParser();
 
@@ -37,6 +37,7 @@ public class ParseCmd {
             if (commandLine.hasOption("h")){
                 HelpFormatter formatter = new HelpFormatter();
                 formatter.printHelp("DisposableArchive", initOptions.getOptions());
+                helpOption = true;
             } else {
 
                 Iterator iterator = commandLine.iterator();
@@ -54,21 +55,15 @@ public class ParseCmd {
                     // Initialize program mode
                     new InitializeProgramMode(option.getOpt()).initMode();
                 }
-
-                ArchiveMode archiveMode = ArchiveMode.getArchiveMode();
-                if (archiveMode.isInitialized()) {
-                    LibMode libMode = archiveMode.getLibMode();
-                    InputMode inputMode = archiveMode.getInputMode();
-                    OutputMode outputMode = archiveMode.getOutputMode();
-                    PasswordMode passwordMode = archiveMode.getPasswordMode();
-                    ProgramMode programMode = archiveMode.getProgramMode();
-                    programMode.startAction(libMode, inputMode, outputMode, passwordMode);
-
-                }
+                helpOption = false;
             }
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isHelpOption() {
+        return helpOption;
     }
 }

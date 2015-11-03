@@ -37,7 +37,6 @@ public class InitializeOutputMode implements InitializeMode {
                     outputMode.setOutputMode(value);
                     // Set output mode
                     archiveMode.setOutputMode(outputMode);
-                    System.out.println("Output mode: " + outputMode.getClass().getSimpleName());
                     break;
             }
         }

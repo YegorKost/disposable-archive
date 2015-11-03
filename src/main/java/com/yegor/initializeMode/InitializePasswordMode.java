@@ -35,7 +35,6 @@ public class InitializePasswordMode implements InitializeMode {
                     passwordMode.setPassword(value);
                     // Set password mode
                     archiveMode.setPasswordMode(passwordMode);
-                    System.out.println("Password mode: " + passwordMode.getClass().getSimpleName());
                     break;
             }
         }

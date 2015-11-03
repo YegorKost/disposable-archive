@@ -39,6 +39,5 @@ public class InitializeProgramMode implements InitializeMode {
         ProgramMode programMode = new ModeOfProgram();
         programMode.setMode(option);
         archiveMode.setProgramMode(programMode);
-        System.out.println("Program mode: " + programMode.getClass().getSimpleName());
     }
 }

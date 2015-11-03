@@ -37,7 +37,6 @@ public class InitializeInputMode implements InitializeMode {
                     inputMode.setInputMode(value);
                     // Set input mode
                     archiveMode.setInputMode(inputMode);
-                    System.out.println("Input mode: " + inputMode.getClass().getSimpleName());
                     break;
             }
         }
