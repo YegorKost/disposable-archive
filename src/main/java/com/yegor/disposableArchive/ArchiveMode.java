@@ -65,7 +65,8 @@ public class ArchiveMode {
 
     public boolean isInitialized () {
         assert archiveMode !=null;
-        return (libMode != null) && (inputMode != null) && (outputMode != null) && (passwordMode != null);
+        return (libMode != null) && (inputMode != null) &&
+                (outputMode != null) && (passwordMode != null) && (programMode != null);
     }
 
     public void getState() {

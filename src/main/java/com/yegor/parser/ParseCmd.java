@@ -13,34 +13,19 @@ import java.util.Iterator;
  */
 public class ParseCmd {
 
-    private String[] args;
-    private InitOptions initOptions = new InitOptions();
     private boolean helpOption = false;
 
-    public ParseCmd(String[] args) {
-        // receive the command line arguments
-        this.args = args;
-        // initialize defined initOptions
-        initOptions.initializeOptions();
-    }
-
-    public void parseAndInit() {
-
-        // create command line parser
-        CommandLineParser parser = new DefaultParser();
-
-        try {
-            // parse the command line arguments
-            CommandLine commandLine = parser.parse(initOptions.getOptions(), args);
+    public void parseAndInit(String[] args) {
+        CommandLineOfProgram.setCommandLineOfProgram(args);
+        CommandLineOfProgram commandLine = CommandLineOfProgram.getCommandLineOfProgram();
 
             // if "-h" or "--help" options presence then print only help message
             if (commandLine.hasOption("h")){
-                HelpFormatter formatter = new HelpFormatter();
-                formatter.printHelp("DisposableArchive", initOptions.getOptions());
+                commandLine.printHelp();
                 helpOption = true;
             } else {
 
-                Iterator iterator = commandLine.iterator();
+                Iterator iterator = commandLine.getIterator();
 
                 while (iterator.hasNext()){
                     Option option = (Option)iterator.next();
@@ -57,10 +42,6 @@ public class ParseCmd {
                 }
                 helpOption = false;
             }
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
     public boolean isHelpOption() {

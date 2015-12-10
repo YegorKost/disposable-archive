@@ -125,6 +125,8 @@ public class LibZip4j implements LibMode {
 
             zipOutputStream.finish();
 
+            PasswordIntoCache.setPasswordToCache();
+
         } catch (IOException | ZipException e) {
             System.out.println(e.getMessage());
         }
@@ -134,22 +136,36 @@ public class LibZip4j implements LibMode {
     /**
      * Extracts contents from archive
      *
-     * @param input  the archive
+     * @param input the archive
      * @param output the target where extracting contents will be store
-     * @param psw    password of archive
+     * @param password password of archive
      */
     @Override
-    public void unpackArchive(InputStream input, OutputStream output, String psw) {
+    public void unpackArchive(InputStream input, OutputStream output, String password) {
 
         final int BUFF_SIZE = 4096;
 
+        Parser parser = new Parser();
+
+        File inputFile = parser.getFile(input);
+        if (!inputFile.exists()) {
+            System.out.println("File " + inputFile.getPath() + " does not exist!");
+            System.exit(0);
+        }
+
+        // Get the FileOutputMode object which contain File object that
+        // represent directory where archive file will be unpacked
+        FileOutputMode fileOutputMode = (FileOutputMode) ArchiveMode.getArchiveMode().getOutputMode();
+        // Get the File object that represent directory where archive file will be store
+        File destinationPath = fileOutputMode.getFile();
+
         try {
 
-            Parser parser = new Parser();
             // Initiate ZipFile object that represent archive file
-            ZipFile zipFile = new ZipFile(parser.getFile(input));
+            ZipFile zipFile = new ZipFile(inputFile);
 
             if (zipFile.isEncrypted()) {
+                String psw = password + PasswordIntoCache.getPasswordFromCache();
                 zipFile.setPassword(psw.toCharArray());
             }
 
@@ -158,12 +174,6 @@ public class LibZip4j implements LibMode {
             for (Object aFileHeader : fileHeaderList) {
                 FileHeader fileHeader = (FileHeader) aFileHeader;
                 if (fileHeader != null) {
-
-                    // Get the FileOutputMode object which contain File object that
-                    // represent directory where archive file will be unpacked
-                    FileOutputMode fileOutputMode = (FileOutputMode) ArchiveMode.getArchiveMode().getOutputMode();
-                    // Get the File object that represent directory where archive file will be store
-                    File destinationPath = fileOutputMode.getFile();
 
                     String outFilePath = destinationPath.getPath() + File.separator
                             + fileHeader.getFileName();
@@ -202,10 +212,8 @@ public class LibZip4j implements LibMode {
             }
 
         } catch (ZipException | IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-
-
     }
 
 }

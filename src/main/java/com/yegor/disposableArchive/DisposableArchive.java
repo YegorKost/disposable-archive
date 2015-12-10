@@ -11,8 +11,8 @@ public class DisposableArchive {
 
     public static void main (String[] args) {
 
-        ParseCmd parseCmd = new ParseCmd(args);
-        parseCmd.parseAndInit();
+        ParseCmd parseCmd = new ParseCmd();
+        parseCmd.parseAndInit(args);
 
         if (!parseCmd.isHelpOption()) {
             ArchiveMode archiveMode = ArchiveMode.getArchiveMode();

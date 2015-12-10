@@ -40,7 +40,9 @@ public class ModeOfProgram implements ProgramMode {
     @Override
     public void startAction(LibMode libMode, InputMode inputMode, OutputMode outputMode, PasswordMode passwordMode) {
         if (mode.equals("p")) {
-            libMode.packArchive(inputMode.getInput(), outputMode.getOutput(), passwordMode.getPassword());
+            passwordMode.setSecondPartOfPassword(passwordMode.getPassword());
+            String psw = passwordMode.getPassword() + passwordMode.getSecondPartOfPassword();
+            libMode.packArchive(inputMode.getInput(), outputMode.getOutput(), psw);
         } else {
             if (mode.equals("unp")) {
                 libMode.unpackArchive(inputMode.getInput(), null, passwordMode.getPassword());
