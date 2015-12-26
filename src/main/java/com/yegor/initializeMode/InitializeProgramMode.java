@@ -34,7 +34,7 @@ public class InitializeProgramMode implements InitializeMode {
         }
     }
 
-    void initAction(String option) {
+    private void initAction(String option) {
         ArchiveMode archiveMode = ArchiveMode.getArchiveMode();
         ProgramMode programMode = new ModeOfProgram();
         programMode.setMode(option);

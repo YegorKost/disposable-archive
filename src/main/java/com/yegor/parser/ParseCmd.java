@@ -6,7 +6,7 @@ import org.apache.commons.cli.*;
 import java.util.Iterator;
 
 /**
- * A class parses command line arguments.
+ * A class parses command line arguments and initializes program.
  *
  * @author Yegor Kostochka
  * @version 1.0
