@@ -26,13 +26,13 @@ import java.nio.charset.StandardCharsets;
 public class LibZip4jTest {
 
     InputStream inputStreamForPack, inputStreamForUnpack;
-    OutputStream outputStreamForPack, outputStreamForUnpuck;
+    OutputStream outputStreamForPack, outputStreamForUnpack;
     File testedDir, dirToTempFile, dirToEmptyDirectory, tempFile, outDir, zipFile;
 
     @Before
     public void setUp() throws Exception {
 
-        testedDir = new File(File.separator + "TestedDir");
+        testedDir = new File("TestedDir");
         dirToTempFile = new File(testedDir + File.separator + "1" + File.separator + "2");
         if (dirToTempFile.mkdirs()) {
             System.out.println(dirToTempFile.getPath() + " is created!");
@@ -58,7 +58,7 @@ public class LibZip4jTest {
         inputStreamForPack = getInputStream(dirToTempFile.getParentFile());
         inputStreamForUnpack = getInputStream(zipFile);
         outputStreamForPack = getOutputStream(zipFile);
-        outputStreamForUnpuck = null;
+        outputStreamForUnpack = null;
 
     }
 
